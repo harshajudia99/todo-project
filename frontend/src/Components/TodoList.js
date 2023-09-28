@@ -77,8 +77,9 @@ export const TodoList = () => {
     getTodos();
   }, []);
 
-  const deleteTodo = async (id) => {
-    console.log(id);
+  const deleteTodo = async (id, title) => {
+    const confirmation = window.confirm(`Are you sure you want to delete the ${title} todo?`);
+    if(confirmation){
     let result = await fetch(`http://localhost:3000/deletetodo/${id}`, {
       method: 'DELETE',
     });
@@ -86,6 +87,7 @@ export const TodoList = () => {
     if (result) {
       getTodos();
     }
+  }
   };
 
   const getTodos = async () => {
@@ -107,7 +109,7 @@ export const TodoList = () => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button type="submit" size="small" onClick={() => deleteTodo(item._id)}>Delete</Button>
+            <Button type="submit" size="small" onClick={() => deleteTodo(item._id, item.title)}>Delete</Button>
             <Button type="submit" size="small">
               <Link className="update-btn-link" to={`/updatetodo/${item._id}`}>Update Todo</Link>
             </Button>

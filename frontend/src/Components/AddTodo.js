@@ -1,9 +1,12 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export const AddTodo = () => {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+
+    const navigate = useNavigate();
 
     const addTodo = async () => {
         let result = await fetch('http://localhost:3000/createtodo',{
@@ -15,8 +18,9 @@ export const AddTodo = () => {
         });
         result = await result.json();
         console.log(result)
-        setTitle('');
-        setDescription('');
+        // setTitle('');
+        // setDescription('');
+        navigate('/')
     }
 
   return (
